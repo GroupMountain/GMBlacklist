@@ -2,12 +2,10 @@
 #include "Global.h"
 #include "Language.h"
 
-ll::Logger logger(PLUGIN_NAME);
-
 namespace GMBlacklist {
 
-std::unique_ptr<Entry>& Entry::getInstance() {
-    static std::unique_ptr<Entry> instance;
+Entry& Entry::getInstance() {
+    static Entry instance;
     return instance;
 }
 
@@ -21,10 +19,10 @@ bool Entry::enable() {
     auto& commandPermissionLevel = getConfig().CommandPermissionLevel;
     if (commandPermissionLevel < 0 || commandPermissionLevel > 4) {
         commandPermissionLevel = 4;
-        logger.error(tr("permission.error.invalidLevel"));
+        getSelf().getLogger().error(tr("permission.error.invalidLevel"));
     }
     if (commandPermissionLevel == 0) {
-        logger.warn(tr("permission.warning.dangerousLevel"));
+        getSelf().getLogger().warn(tr("permission.warning.dangerousLevel"));
     }
     initDataFile();
     mI18n.emplace(getSelf().getLangDir(), mConfig->language);
@@ -35,9 +33,9 @@ bool Entry::enable() {
     checkBanTimeTask();
     RegisterCommands();
     listenEvent();
-    logger.info("GMBlacklist Loaded!");
-    logger.info("Author: Tsubasa6848");
-    logger.info("Repository: https://github.com/GroupMountain/GMBlacklist");
+    getSelf().getLogger().info("GMBlacklist Loaded!");
+    getSelf().getLogger().info("Author: Tsubasa6848");
+    getSelf().getLogger().info("Repository: https://github.com/GroupMountain/GMBlacklist");
     return true;
 }
 
@@ -52,5 +50,5 @@ JsonI18n& Entry::getI18n() { return mI18n.value(); }
 LL_REGISTER_MOD(GMBlacklist::Entry, GMBlacklist::Entry::getInstance());
 
 std::string tr(std::string const& key, std::vector<std::string> const& data) {
-    return GMBlacklist::Entry::getInstance()->getI18n().get(key, data);
+    return GMBlacklist::Entry::getInstance().getI18n().get(key, data);
 }

@@ -1,7 +1,7 @@
 {
     "format_version": 2,
     "tooth": "github.com/GroupMountain/GMBlacklist",
-    "version": "0.12.1",
+    "version": "0.12.2",
     "info": {
         "name": "GMBlacklist",
         "description": "Blacklist Plugin on Bedrock Dedicated Server",
@@ -14,9 +14,9 @@
             "ban"
         ]
     },
-    "asset_url": "https://github.com/GroupMountain/GMBlacklist/releases/download/v0.12.1/GMBlacklist-windows-x64.zip",
+    "asset_url": "https://github.com/GroupMountain/GMBlacklist/releases/download/v0.12.2/GMBlacklist-windows-x64.zip",
     "dependencies": {
-        "github.com/GroupMountain/GMLIB": ">=0.12.7"
+        "github.com/GroupMountain/GMLIB": ">=0.13.10"
     },
     "files": {
         "place": [
