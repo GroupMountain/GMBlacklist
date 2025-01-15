@@ -4,8 +4,6 @@
 
 #define PLUGIN_NAME "GMBlacklist"
 
-extern ll::Logger logger;
-
 extern nlohmann::json mBanList;
 extern nlohmann::json mBanIpList;
 extern nlohmann::json mUserCache;

@@ -1,6 +1,7 @@
 #pragma once
-#include <iostream>
+#include <string>
 
+namespace GMBlacklist {
 struct Config {
     int version = 1;
 
@@ -8,3 +9,4 @@ struct Config {
 
     int CommandPermissionLevel = 4;
 };
+}// namespace GMBlacklist
