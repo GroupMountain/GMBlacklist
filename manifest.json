@@ -4,7 +4,7 @@
     "type": "native",
     "author": "GroupMountain",
     "description": "A powerful blacklist plugin",
-    "version": "0.12.2",
+    "version": "${modVersion}",
     "dependencies": [
         {
             "name": "GMLIB"
