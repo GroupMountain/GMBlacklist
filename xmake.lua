@@ -37,18 +37,8 @@ target("GMBlacklist") -- Change this to your plugin name.
         "_HAS_CXX23"
     )
     add_rules("@levibuildscript/linkrule")
+    add_rules("@levibuildscript/modpacker")
     set_exceptions("none") -- To avoid conflicts with /EHa
     set_kind("shared")
     set_languages("cxx23")
     set_symbols("debug")
-
-    after_build(function (target)
-        local plugin_packer = import("scripts.after_build")
-
-        local plugin_define = {
-            pluginName = target:name(),
-            pluginFile = path.filename(target:targetfile()),
-        }
-        
-        plugin_packer.pack_plugin(target,plugin_define)
-    end)
