@@ -1,10 +1,10 @@
 #pragma once
 #include "Config.h"
-#include "Global.h"
+#include "Global.h" // IWYU pragma: export
 
 namespace GMBlacklist {
 
-using namespace GMLIB::Files::I18n;
+using namespace gmlib::i18n;
 
 class Entry {
 

@@ -1,6 +1,9 @@
 #pragma once
-#include <include_all.h>
-#include <sstream>
+// #include <include_all.h>
+#include "gmlib/include_lib.h" // IWYU pragma: export
+#include "gmlib/include_ll.h"  // IWYU pragma: export
+#include "ila/include_all.h"   // IWYU pragma: export
+#include <sstream>             // IWYU pragma: export
 
 #define PLUGIN_NAME "GMBlacklist"
 
@@ -8,23 +11,21 @@ extern nlohmann::json mBanList;
 extern nlohmann::json mBanIpList;
 extern nlohmann::json mUserCache;
 
-extern std::string tr(std::string const& key, std::vector<std::string> const& data = {});
-extern std::string getExpiredTime(int offsetMinutes = 0);
+std::string tr(std::string const& key, std::vector<std::string> const& data = {});
+std::string getExpiredTime(int offsetMinutes = 0);
 
-extern void initDataFile();
+void initDataFile();
 
-extern void RegisterCommands();
-extern void checkBanTimeTask();
+void RegisterCommands();
+void checkBanTimeTask();
 
-extern bool banPlayer(std::string& name, std::string& opSource, int time, std::string& reason);
-extern bool banIP(std::string& ip, std::string& opSource, int time, std::string& reason);
-extern bool banOnlinePlayer(Player* pl, std::string& opSource, int time, std::string& reason);
-extern bool unbanPlayer(std::string& name);
-extern bool unbanIP(std::string& ip);
+bool banPlayer(const std::string& name, const std::string& opSource, int time, const std::string& reason);
+bool banIP(const std::string& ip, const std::string& opSource, int time, const std::string& reason);
+bool banOnlinePlayer(Player* pl, const std::string& opSource, int time, const std::string& reason);
+bool unbanPlayer(const std::string& name);
+bool unbanIP(const std::string& ip);
 
-extern void showBanPlayersList(CommandOutput& output);
-extern void showBanIpsList(CommandOutput& output);
+void showBanPlayersList(CommandOutput& output);
+void showBanIpsList(CommandOutput& output);
 
-extern void listenEvent();
-
-extern void RegisterCommands();
+void listenEvent();

@@ -9,7 +9,7 @@ Entry& Entry::getInstance() {
     return instance;
 }
 
-bool Entry::load() { return true; }
+bool Entry::load() /*NOLINT*/ { return true; }
 
 bool Entry::enable() {
     mConfig.emplace();
@@ -39,7 +39,7 @@ bool Entry::enable() {
     return true;
 }
 
-bool Entry::disable() { return true; }
+bool Entry::disable() /*NOLINT*/ { return true; }
 
 Config& Entry::getConfig() { return mConfig.value(); }
 
