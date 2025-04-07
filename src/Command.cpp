@@ -52,19 +52,16 @@ void RegBanCmd() {
         tr("command.ban.desc"),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
-    cmd.overload<BanParam>()
-        .required("name")
-        .optional("time")
-        .optional("reason")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, BanParam const& param) {
+    cmd.overload<BanParam>().required("name").optional("time").optional("reason").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, BanParam const& param) {
             return banExecute(origin, output, param);
-        });
-    cmd.overload<BanParam>()
-        .required("name")
-        .optional("reason")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, BanParam const& param) {
+        }
+    );
+    cmd.overload<BanParam>().required("name").optional("reason").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, BanParam const& param) {
             return banExecute(origin, output, param);
-        });
+        }
+    );
 }
 
 struct UnbanParam {
@@ -77,9 +74,8 @@ void RegUnbanCmd() {
         tr("command.unban.desc"),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
-    cmd.overload<UnbanParam>()
-        .required("name")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, UnbanParam const& param) {
+    cmd.overload<UnbanParam>().required("name").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, UnbanParam const& param) {
             auto type = origin.getOriginType();
             if (type == CommandOriginType::DedicatedServer || type == CommandOriginType::Player) {
                 auto name = param.name;
@@ -90,7 +86,8 @@ void RegUnbanCmd() {
                 return output.error(tr("command.unban.notBanned", {name}));
             }
             return output.error(tr("command.error.invalidCommandOrigin"));
-        });
+        }
+    );
 }
 
 struct BanIpParam {
@@ -139,19 +136,16 @@ void RegBanIpCmd() {
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     ll::service::getCommandRegistry()->registerAlias("banip", "ban-ip");
-    cmd.overload<BanIpParam>()
-        .required("ip")
-        .optional("time")
-        .optional("reason")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, BanIpParam const& param) {
+    cmd.overload<BanIpParam>().required("ip").optional("time").optional("reason").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, BanIpParam const& param) {
             return banIpExecute(origin, output, param);
-        });
-    cmd.overload<BanIpParam>()
-        .required("ip")
-        .optional("reason")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, BanIpParam const& param) {
+        }
+    );
+    cmd.overload<BanIpParam>().required("ip").optional("reason").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, BanIpParam const& param) {
             return banIpExecute(origin, output, param);
-        });
+        }
+    );
 }
 
 struct UnbanIpParam {
@@ -164,9 +158,8 @@ void RegUnbanipCmd() {
         tr("command.unbanip.desc"),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
-    cmd.overload<UnbanIpParam>()
-        .required("ip")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, UnbanIpParam const& param) {
+    cmd.overload<UnbanIpParam>().required("ip").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, UnbanIpParam const& param) {
             auto type = origin.getOriginType();
             if (type == CommandOriginType::DedicatedServer || type == CommandOriginType::Player) {
                 auto ip  = param.ip;
@@ -177,7 +170,8 @@ void RegUnbanipCmd() {
                 return output.error(tr("command.unbanip.notBanned", {ip}));
             }
             return output.error(tr("command.error.invalidCommandOrigin"));
-        });
+        }
+    );
 }
 
 struct BanListParam {
@@ -191,9 +185,8 @@ void RegBanlistCmd() {
         tr("command.banlist.desc"),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
-    cmd.overload<BanListParam>()
-        .optional("mode")
-        .execute([](CommandOrigin const& origin, CommandOutput& output, BanListParam const& param) {
+    cmd.overload<BanListParam>().optional("mode").execute(
+        [](CommandOrigin const& origin, CommandOutput& output, BanListParam const& param) {
             auto type = origin.getOriginType();
             if (type == CommandOriginType::DedicatedServer || type == CommandOriginType::Player) {
                 if (param.mode == "ips") {
@@ -202,7 +195,8 @@ void RegBanlistCmd() {
                 return showBanPlayersList(output);
             }
             return output.error(tr("command.error.invalidCommandOrigin"));
-        });
+        }
+    );
 }
 
 void RegisterCommands() {

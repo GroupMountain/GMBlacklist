@@ -1,13 +1,16 @@
 {
-    "name": "${pluginName}",
-    "entry": "${pluginFile}",
+    "name": "${modName}",
+    "entry": "${modFile}",
     "type": "native",
     "author": "GroupMountain",
-    "description": "A powerful blacklist plugin",
+    "description": "A powerful blacklist mod",
     "version": "${modVersion}",
     "dependencies": [
         {
             "name": "GMLIB"
+        },
+        {
+            "name": "iListenAttentively"
         }
     ]
 }

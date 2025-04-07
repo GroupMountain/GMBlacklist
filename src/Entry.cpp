@@ -9,7 +9,7 @@ Entry& Entry::getInstance() {
     return instance;
 }
 
-bool Entry::load() { return true; }
+bool Entry::load() /*NOLINT*/ { return true; }
 
 bool Entry::enable() {
     mConfig.emplace();
@@ -34,12 +34,12 @@ bool Entry::enable() {
     RegisterCommands();
     listenEvent();
     getSelf().getLogger().info("GMBlacklist Loaded!");
-    getSelf().getLogger().info("Author: Tsubasa6848");
+    getSelf().getLogger().info("Author: KobeBryant114514");
     getSelf().getLogger().info("Repository: https://github.com/GroupMountain/GMBlacklist");
     return true;
 }
 
-bool Entry::disable() { return true; }
+bool Entry::disable() /*NOLINT*/ { return true; }
 
 Config& Entry::getConfig() { return mConfig.value(); }
 

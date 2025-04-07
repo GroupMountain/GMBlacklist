@@ -1,29 +1,37 @@
 {
-    "format_version": 2,
+    "format_version": 3,
+    "format_uuid": "289f771f-2c9a-4d73-9f3f-8492495a924d",
     "tooth": "github.com/GroupMountain/GMBlacklist",
-    "version": "0.12.2",
+    "version": "0.12.3",
     "info": {
         "name": "GMBlacklist",
-        "description": "Blacklist Plugin on Bedrock Dedicated Server",
-        "author": "GroupMountain",
-        "source": "github.com/GroupMountain/GMBlacklist",
-        "tags": [
-            "leviLamina",
-            "gmlib",
-            "blacklist",
-            "ban"
-        ]
+        "description": "Blacklist Mod on Bedrock Dedicated Server",
+        "tags": [],
+        "avatar_url": ""
     },
-    "asset_url": "https://github.com/GroupMountain/GMBlacklist/releases/download/v0.12.2/GMBlacklist-windows-x64.zip",
-    "dependencies": {
-        "github.com/GroupMountain/GMLIB": ">=0.13.10"
-    },
-    "files": {
-        "place": [
-            {
-                "src": "GMBlacklist/*",
-                "dest": "plugins/GMBlacklist"
-            }
-        ]
-    }
+    "variants": [
+        {
+            "label": "",
+            "platform": "win-x64",
+            "dependencies": {
+                "github.com/GroupMountain/GMLIB-Release": "1.0.*",
+                "github.com/MiracleForest/iListenAttentively-Release": "0.4.*"
+            },
+            "assets": [
+                {
+                    "type": "zip",
+                    "urls": [
+                        "https://{{tooth}}/releases/download/v{{version}}/GMBlacklist-windows-x64.zip"
+                    ],
+                    "placements": [
+                        {
+                            "type": "dir",
+                            "src": "GMBlacklist/",
+                            "dest": "plugins/GMBlacklist/"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
