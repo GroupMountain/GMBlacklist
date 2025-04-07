@@ -34,7 +34,7 @@ bool Entry::enable() {
     RegisterCommands();
     listenEvent();
     getSelf().getLogger().info("GMBlacklist Loaded!");
-    getSelf().getLogger().info("Author: Tsubasa6848");
+    getSelf().getLogger().info("Author: KobeBryant114514");
     getSelf().getLogger().info("Repository: https://github.com/GroupMountain/GMBlacklist");
     return true;
 }
