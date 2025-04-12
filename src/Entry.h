@@ -39,3 +39,5 @@ private:
 };
 
 } // namespace GMBlacklist
+
+JSONI18N_LITERALS(GMBlacklist::Entry::getInstance().getI18n())

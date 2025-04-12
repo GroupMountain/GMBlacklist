@@ -1,6 +1,6 @@
 #include "Entry.h"
 #include "Global.h"
-#include "Language.h"
+#include "resource.h"
 
 namespace GMBlacklist {
 
@@ -19,10 +19,10 @@ bool Entry::enable() {
     auto& commandPermissionLevel = getConfig().CommandPermissionLevel;
     if (commandPermissionLevel < 0 || commandPermissionLevel > 4) {
         commandPermissionLevel = 4;
-        getSelf().getLogger().error(tr("permission.error.invalidLevel"));
+        getSelf().getLogger().error("permission.error.invalidLevel"_tr());
     }
     if (commandPermissionLevel == 0) {
-        getSelf().getLogger().warn(tr("permission.warning.dangerousLevel"));
+        getSelf().getLogger().warn("permission.warning.dangerousLevel"_tr());
     }
     initDataFile();
     mI18n.emplace(getSelf().getLangDir(), mConfig->language);
@@ -48,7 +48,3 @@ JsonI18n& Entry::getI18n() { return mI18n.value(); }
 } // namespace GMBlacklist
 
 LL_REGISTER_MOD(GMBlacklist::Entry, GMBlacklist::Entry::getInstance());
-
-std::string tr(std::string const& key, std::vector<std::string> const& data) {
-    return GMBlacklist::Entry::getInstance().getI18n().get(key, data);
-}

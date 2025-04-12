@@ -16,7 +16,7 @@ add_requires("ilistenattentively")
 target("GMBlacklist") -- Change this to your plugin name.
     add_cxflags( "/EHa", "/utf-8", "/W4", "/w44265", "/w44289", "/w44296", "/w45263", "/w44738", "/w45204")
     add_defines("NOMINMAX", "UNICODE")
-    add_files("src/**.cpp")
+    add_files("src/**.cpp","src/**.rc")
     add_includedirs("src")
     add_packages("levilamina", "gmlib", "ilistenattentively")
     add_rules("@levibuildscript/linkrule")
