@@ -10,7 +10,7 @@ struct BanParam {
 void banExecute(CommandOrigin const& origin, CommandOutput& output, BanParam const& param) {
     std::string source = "Console";
     int         time   = -1;
-    std::string reason = tr("disconnect.defaultReason");
+    std::string reason = "disconnect.defaultReason"_tr();
     auto        type   = origin.getOriginType();
     if (type == CommandOriginType::DedicatedServer || type == CommandOriginType::Player) {
         if (type == CommandOriginType::Player) {
@@ -20,13 +20,13 @@ void banExecute(CommandOrigin const& origin, CommandOutput& output, BanParam con
         if (param.time.has_value()) {
             time = param.time;
             if (time < 1) {
-                return output.error(tr("command.error.invalidTime"));
+                return output.error("command.error.invalidTime"_tr());
             }
         }
         if (param.reason.has_value()) {
             reason = param.reason;
             if (reason.empty()) {
-                reason = tr("disconnect.defaultReason");
+                reason = "disconnect.defaultReason"_tr();
             }
         }
         auto name = param.name;
@@ -38,18 +38,18 @@ void banExecute(CommandOrigin const& origin, CommandOutput& output, BanParam con
             res = banPlayer(name, source, time, reason);
         }
         if (res) {
-            std::string endTime = time < 0 ? tr("disconnect.forever") : getExpiredTime(time);
-            return output.success(tr("command.ban.success", {name, endTime}));
+            std::string endTime = time < 0 ? "disconnect.forever"_tr() : getExpiredTime(time);
+            return output.success("command.ban.success"_tr(name, endTime));
         }
-        return output.error(tr("command.ban.isBanned", {name}));
+        return output.error("command.ban.isBanned"_tr(name));
     }
-    return output.error(tr("command.error.invalidCommandOrigin"));
+    return output.error("command.error.invalidCommandOrigin"_tr());
 }
 
 void RegBanCmd() {
     auto& cmd = ll::command::CommandRegistrar::getInstance().getOrCreateCommand(
         "ban",
-        tr("command.ban.desc"),
+        "command.ban.desc"_tr(),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     cmd.overload<BanParam>().required("name").optional("time").optional("reason").execute(
@@ -71,7 +71,7 @@ struct UnbanParam {
 void RegUnbanCmd() {
     auto& cmd = ll::command::CommandRegistrar::getInstance().getOrCreateCommand(
         "unban",
-        tr("command.unban.desc"),
+        "command.unban.desc"_tr(),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     cmd.overload<UnbanParam>().required("name").execute(
@@ -81,11 +81,11 @@ void RegUnbanCmd() {
                 auto name = param.name;
                 auto res  = unbanPlayer(name);
                 if (res) {
-                    return output.success(tr("command.unban.success", {name}));
+                    return output.success("command.unban.success"_tr(name));
                 }
-                return output.error(tr("command.unban.notBanned", {name}));
+                return output.error("command.unban.notBanned"_tr(name));
             }
-            return output.error(tr("command.error.invalidCommandOrigin"));
+            return output.error("command.error.invalidCommandOrigin"_tr());
         }
     );
 }
@@ -99,7 +99,7 @@ struct BanIpParam {
 void banIpExecute(CommandOrigin const& origin, CommandOutput& output, BanIpParam const& param) {
     std::string source = "Console";
     int         time   = -1;
-    std::string reason = tr("disconnect.defaultReason");
+    std::string reason = "disconnect.defaultReason"_tr();
     auto        type   = origin.getOriginType();
     if (type == CommandOriginType::DedicatedServer || type == CommandOriginType::Player) {
         if (type == CommandOriginType::Player) {
@@ -109,30 +109,30 @@ void banIpExecute(CommandOrigin const& origin, CommandOutput& output, BanIpParam
         if (param.time.has_value()) {
             time = param.time;
             if (time < 1) {
-                return output.error(tr("command.error.invalidTime"));
+                return output.error("command.error.invalidTime"_tr());
             }
         }
         if (param.reason.has_value()) {
             reason = param.reason;
             if (reason.empty()) {
-                reason = tr("disconnect.defaultReason");
+                reason = "disconnect.defaultReason"_tr();
             }
         }
         auto ip  = param.ip;
         auto res = banIP(ip, source, time, reason);
         if (res) {
-            std::string endTime = time < 0 ? tr("disconnect.forever") : getExpiredTime(time);
-            return output.success(tr("command.banip.success", {ip, endTime}));
+            std::string endTime = time < 0 ? "disconnect.forever"_tr() : getExpiredTime(time);
+            return output.success("command.banip.success"_tr(ip, endTime));
         }
-        return output.error(tr("command.banip.isBanned", {ip}));
+        return output.error("command.banip.isBanned"_tr(ip));
     }
-    return output.error(tr("command.error.invalidCommandOrigin"));
+    return output.error("command.error.invalidCommandOrigin"_tr());
 }
 
 void RegBanIpCmd() {
     auto& cmd = ll::command::CommandRegistrar::getInstance().getOrCreateCommand(
         "banip",
-        tr("command.banip.desc"),
+        "command.banip.desc"_tr(),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     ll::service::getCommandRegistry()->registerAlias("banip", "ban-ip");
@@ -155,7 +155,7 @@ struct UnbanIpParam {
 void RegUnbanipCmd() {
     auto& cmd = ll::command::CommandRegistrar::getInstance().getOrCreateCommand(
         "unbanip",
-        tr("command.unbanip.desc"),
+        "command.unbanip.desc"_tr(),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     cmd.overload<UnbanIpParam>().required("ip").execute(
@@ -165,11 +165,11 @@ void RegUnbanipCmd() {
                 auto ip  = param.ip;
                 auto res = unbanIP(ip);
                 if (res) {
-                    return output.success(tr("command.unbanip.success", {ip}));
+                    return output.success("command.unbanip.success"_tr(ip));
                 }
-                return output.error(tr("command.unbanip.notBanned", {ip}));
+                return output.error("command.unbanip.notBanned"_tr(ip));
             }
-            return output.error(tr("command.error.invalidCommandOrigin"));
+            return output.error("command.error.invalidCommandOrigin"_tr());
         }
     );
 }
@@ -182,7 +182,7 @@ struct BanListParam {
 void RegBanlistCmd() {
     auto& cmd = ll::command::CommandRegistrar::getInstance().getOrCreateCommand(
         "banlist",
-        tr("command.banlist.desc"),
+        "command.banlist.desc"_tr(),
         (CommandPermissionLevel)GMBlacklist::Entry::getInstance().getConfig().CommandPermissionLevel
     );
     cmd.overload<BanListParam>().optional("mode").execute(
@@ -194,7 +194,7 @@ void RegBanlistCmd() {
                 }
                 return showBanPlayersList(output);
             }
-            return output.error(tr("command.error.invalidCommandOrigin"));
+            return output.error("command.error.invalidCommandOrigin"_tr());
         }
     );
 }

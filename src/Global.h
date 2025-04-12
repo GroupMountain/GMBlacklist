@@ -11,7 +11,6 @@ extern nlohmann::json mBanList;
 extern nlohmann::json mBanIpList;
 extern nlohmann::json mUserCache;
 
-std::string tr(std::string const& key, std::vector<std::string> const& data = {});
 std::string getExpiredTime(int offsetMinutes = 0);
 
 void initDataFile();
