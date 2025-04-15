@@ -1,24 +1,23 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Entry.h"
-#include "nlohmann/json.hpp"
 
 nlohmann::json mBanList;
 nlohmann::json mBanIpList;
 
 std::mutex mtx;
 
-void saveBanFile() { gmlib::utils::JsonUtils::writeFile("./banned-players.json", mBanList); }
+void saveBanFile() { gmlib::json_utils::writeFile("./banned-players.json", mBanList); }
 
-void saveBanIpFile() { gmlib::utils::JsonUtils::writeFile("./banned-ips.json", mBanIpList); }
+void saveBanIpFile() { gmlib::json_utils::writeFile("./banned-ips.json", mBanIpList); }
 
 
 void initDataFile() {
-    mBanList   = gmlib::utils::JsonUtils::initJson("./banned-players.json", nlohmann::json::array());
-    mBanIpList = gmlib::utils::JsonUtils::initJson("./banned-ips.json", nlohmann::json::array());
+    mBanList   = gmlib::json_utils::initJson("./banned-players.json", nlohmann::json::array());
+    mBanIpList = gmlib::json_utils::initJson("./banned-ips.json", nlohmann::json::array());
 }
 
-std::string getIP(const std::string ipAndPort) {
-    auto pos = ipAndPort.find(":");
+std::string getIP(const std::string& ipAndPort) {
+    auto pos = ipAndPort.find(':');
     return ipAndPort.substr(0, pos);
 }
 
@@ -29,7 +28,7 @@ std::time_t convertStringToTime(const std::string& timeString) {
     return std::mktime(&tm);
 }
 
-bool isExpired(const std::string targetTimeStr) {
+bool isExpired(const std::string& targetTimeStr) {
     if (targetTimeStr == "forever") {
         return false;
     }
@@ -278,7 +277,7 @@ void listenEvent() {
             event.disConnectClient(msg);
         }
         auto uuid     = event.uuid().asString();
-        auto realName = event.realName();
+        const auto& realName = event.realName();
         if (isBanned(uuid, realName)) {
             auto info    = getBannedInfo(uuid);
             auto endtime = info.second == "forever" ? "disconnect.forever"_tr() : info.second;
